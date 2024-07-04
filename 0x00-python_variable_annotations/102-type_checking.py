@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Using 'mymy' to validate code and apply changes"""
+"""Using 'mypy' to validate code and apply changes"""
 from typing import Tuple, List
 
 
 def zoom_array(lst: List[int], factor: int = 2) -> List[int]:
+    """Zoooms in an array."""
     zoomed_in = [
         item for item in lst
         for _ in range(factor)
