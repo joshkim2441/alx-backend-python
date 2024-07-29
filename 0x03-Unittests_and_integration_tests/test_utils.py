@@ -26,16 +26,14 @@ from unittest.mock import patch, Mock
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """Test access_nested_map
-    """
+    """Test access_nested_map"""
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
     def test_access_nested_map(self, nested_map, path, result):
-        """Test access_nested_map
-        """
+        """Test access_nested_map"""
         res = access_nested_map(nested_map, path)
         self.assertEqual(res, result)
 
@@ -45,15 +43,13 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map_exception(self, nested_map, path,
                                          result):
-        """Test access_nested_map
-        """
+        """Test access_nested_map"""
         with self.assertRaises(result) as context:
             access_nested_map(nested_map, path)
 
 
 class TestGetJson(unittest.TestCase):
-    """Test get_json
-    """
+    """Test get_json"""
 
     @parameterized.expand([
         ("https://example.com", {"payload": True}),
@@ -64,8 +60,7 @@ class TestGetJson(unittest.TestCase):
         test_url: str,
         test_payload: Dict,
         ) -> None:
-        """Test get_json
-        """
+        """Test get_json"""
         attrs = {'json.return_value': test_payload}
         with patch('requests.get', return_value=Mock(**attrs)) as req_get:
             self.assertEqual(get_json(test_url), test_payload)
@@ -73,12 +68,11 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    """Test memoize
-    """
+    """Test memoize"""
     def test_memoize(self):
-        """Test memoize
-        """
+        """Test memoize"""
         class TestClass:
+            """TestClass"""
             def a_method(self):
                 """a_method called"""
                 return 42
