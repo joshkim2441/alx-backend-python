@@ -19,6 +19,7 @@ nested_map={"a": {"b": 2}}, path=("a", "b")
 """
 
 import unittest
+from typing import Dict
 from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
 from unittest.mock import patch, Mock
@@ -57,14 +58,17 @@ class TestGetJson(unittest.TestCase):
         ("https://example.com", {"payload": True}),
         ("https://holberton.io", {"payload": False})
     ])
-    def test_get_json(self, url, result):
+    def test_get_json(
+        self,
+        test_url: str,
+        test_payload: Dict,
+        ) -> None:
         """Test get_json
         """
-        mock_response = Mock()
-        mock_response.json.return_value = result
-        with patch('requests.get', return_value=mock_response):
-            res = get_json(url)
-        self.assertEqual(res, result)
+        attrs = {'json.return_value': test_payload}
+        with patch('requests.get', return_value=Mock(**attrs)) as req_get:
+            self.assertEqual(get_json(test_url), test_payload)
+            req_get.assert_called_once_with(test_url)
 
 
 class TestMemoize(unittest.TestCase):
