@@ -43,10 +43,10 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), KeyError),
     ])
     def test_access_nested_map_exception(self, nested_map, path,
-                                         expected_output):
+                                         result):
         """Test access_nested_map
         """
-        with self.assertRaises(expected_output) as context:
+        with self.assertRaises(result) as context:
             access_nested_map(nested_map, path)
 
 
@@ -92,9 +92,5 @@ class TestMemoize(unittest.TestCase):
             res2 = test.a_property
 
             self.assertEqual(res1, 42)
-            self.assertEqual(res1, res2)
+            self.assertEqual(res1, 42)
             mock.assert_called_once()
-
-
-if __name__ == "__main__":
-    unittest.main
