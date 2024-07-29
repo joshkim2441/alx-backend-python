@@ -24,7 +24,6 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {"login": "abc"}),
     ])
     @patch('client.get_json')
-
     def test_org(self, org: str, result: dict,
                  mocked_function: MagicMock) -> None:
         """_summary_
@@ -42,19 +41,22 @@ class TestGithubOrgClient(unittest.TestCase):
             "https://api.github.com/orgs/{}".format(org)
         )
 
-    def test_public_repos(self) -> None:
+    def test_public_repos_url(self) -> None:
         """Test public_repos
         """
-        with patch('client.GithubOrgClient.org',
-                   new_callable=PropertyMock,
-                   ) as mock_org:
-                   mock_org.return_value = {
-                       "repos_url": "https://api.github.com/users/google/repos",
-                   }
-                   self.assertEqual(
-                       GithubOrgClient("google")._public_repos_url,
-                       "https://api.github.com/users/google/repos"
-                   )
+        with patch(
+            'client.GithubOrgClient.org',
+            new_callable=PropertyMock,
+        ) as mock_org:
+            mock_org.return_value = {
+                "repos_url":
+                "https://api.github.com/users/google/repos",
+            }
+            self.assertEqual(
+                GithubOrgClient("google")._public_repos_url,
+                "https://api.github.com/users/google/repos"
+            )
+
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json: MagicMock) -> None:
         """Test public_repos
@@ -101,17 +103,17 @@ class TestGithubOrgClient(unittest.TestCase):
         }
 
         mock_get_json.return_value = test_payload["repos"]
-        with patch('client.GithubOrgClient._public_repos_url',
+        with patch(
+            'client.GithubOrgClient._public_repos_url',
             new_callable=PropertyMock,
         ) as mock_public_repos_url:
             mock_public_repos_url.return_value = test_payload["repos_url"]
             self.assertEqual(
                GithubOrgClient("google").public_repos(),
                ["episodes.dart", "kratu"],
-           )
+            )
             mock_public_repos_url.assert_called_once()
         mock_get_json.assert_called_once()
-
 
     @parameterized.expand([
         ({'license': {'key': "bsd-3-clause"}}, "bsd-3-clause", True),
@@ -183,7 +185,6 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """_summary_
         """
         cls.get_patcher.stop()
-
 
 
 class TestAccessNestedMap(unittest.TestCase):
