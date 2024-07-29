@@ -59,7 +59,7 @@ class TestGetJson(unittest.TestCase):
         self,
         test_url: str,
         test_payload: Dict,
-        ) -> None:
+    ) -> None:
         """Test get_json"""
         attrs = {'json.return_value': test_payload}
         with patch('requests.get', return_value=Mock(**attrs)) as req_get:
@@ -71,8 +71,10 @@ class TestMemoize(unittest.TestCase):
     """Test memoize"""
     def test_memoize(self):
         """Test memoize"""
+
         class TestClass:
             """TestClass"""
+
             def a_method(self):
                 """a_method called"""
                 return 42
@@ -81,7 +83,6 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 """a_property called"""
                 return self.a_method()
-
         test = TestClass()
 
         with patch.object(test, 'a_method') as mock:
