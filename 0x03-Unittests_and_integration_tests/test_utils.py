@@ -53,7 +53,7 @@ class TestGetJson(unittest.TestCase):
 
     @parameterized.expand([
         ("https://example.com", {"payload": True}),
-        ("https://holberton.io", {"payload": False})
+        ("https://holberton.io", {"payload": False}),
     ])
     def test_get_json(
         self,
